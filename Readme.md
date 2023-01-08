@@ -48,8 +48,8 @@ type optionsType  = {
     inputDate?: string
 }
 ```
-`tokenType` is the type for the tokens that are read from the csv file
-`optionsType` represents the parameters that will be passed to the processing function
+`tokenType` represents tokens that are read from the csv file
+`optionsType` represents parameters that will be passed to the processing function
 
 ### 3. Get User Input and Initialize App.
 ```
