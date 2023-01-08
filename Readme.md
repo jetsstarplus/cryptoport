@@ -61,8 +61,8 @@ const InitializeApp = () => {
     ProcessCSV({inputToken, inputDate})
 }
 ```
-Here take a non mandatory input of the filter token and date from the user.
-I then called `ProcessCSV` function.
+Here I take non mandatory token and date filters from the user.
+I then call `ProcessCSV` function.
 
 ### 4. Process the CSV file.
 ```
@@ -88,16 +88,17 @@ const ProcessCSV = (options:optionsType) => {
     })
 }
 ```
-In the above function, I first defined a `stream` using `fs.createReadStream` module with the CSV File as the argument.
-I the used the Pipe with `csv.parse` which returns a promise that allows me to read each line of the csv file.
-I then pass a callback function to  then `on('data')` Event where the read lines are returned from.
+In the above function, I first define `stream` variable that uses `fs.createReadStream` module with the CSV File path argument.
+I then use `pipe` with `csv.parse` which returns a promise that allows me to read each line of the csv file.
+I then pass a callback function to `on('data')` Event to get each line of data.
 
-I then have a condition to check if the current token is in the `tokens` global variable that I initialized Earlier and add it if the condition passes.
-I then check if the `inputDate` parameter is blank or undefined
+I then insert the token to `tokens` global variable as a `key` and `0` as value.
 
-* if TRUE, I filter out the records whose transaction date(`transDate`) is not equal to the `inputDate` and call the `CalculateDebitCreditValue` function with the token as the parameter for matching transaction date record.
+I then check whether `inputDate` parameter is blank or undefined
 
-* If FALSE, then I just directly call the `CalculateDebitCreditValue` Function with the token as the parameter whose purpose is explained below.
+* if TRUE, I filter out the records whose transaction date(`transDate`) is not equal to the `inputDate` and call `CalculateDebitCreditValue` with `token` as parameter for matching transaction date record.
+
+* If FALSE, then I just directly call `CalculateDebitCreditValue` with the `token` as parameter whose purpose is explained below.
 
 ### 5. Calculate Debit Credit from the amount
 ```
@@ -108,13 +109,14 @@ const CalculateDebitCreditValue = (token:tokenType) => {
         tokens[token.token] -+ parseFloat(token.amount)
 }
 ```
-The `CalculateDebitCreditValue` function which takes the token as a parameter, adds or substracts the amount to the `tokens` value depending on the transaction type.
+`CalculateDebitCreditValue` function which takes `token` as parameter, adds or substracts the amount to `tokens` `value` depending on the transaction type.
 
-### 6. Convert the Tokens Values to USD
+### 6. Convert Tokens Values to USD
 
-I had already defined `exchangeCurrency = 'USD'` at the beginning. So this can be changed to any other currency, such can even come from an API on an ENV.
+I Use `exchangeCurrency = 'USD'` defined earlier.
+This can be changed to any other currency, it can even be fetched from an API or from and environment variable.
 
-The below function will fetch the exchange rate of all the tokens in our `tokens` object and convert the value to that of the `exchangeCurrency`.
+The below function will fetch `exchange rates` of all the tokens in our `tokens` object and convert the value to that of the `exchangeCurrency`.
 ```
 const SetAmountToExchanged = (options:optionsType) => {
     let tokenKeys = ''
@@ -142,23 +144,23 @@ const SetAmountToExchanged = (options:optionsType) => {
     })
 }
 ```
-We first create a string of the token keys joined with a comma `,` as shown below.
+We first create a string of our token keys joined with a comma `,` as shown below.
 ```
 let tokenKeys = ''    
 Object.entries(tokens).forEach(([key]) => {
     tokenKeys += ','+key
 })        
 ```
-The `tokenKeys` is then passed as a parameter to axios as `tsyms` and `exchangeCurrency` as `fsym`.
+`tokenKeys` is then passed as a parameter to axios as `tsyms` and `exchangeCurrency` as `fsym`.
 
 The resulting Example URL Would then be
 ```
 https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=BTC,ETH,XTC
 ```
-The response of the api would be an object with the crypto tokens as the keys.
-I then just map the `tokens` object and convert the tokens values with the exchange rate received.
+The API response would be an object with the crypto tokens as the keys.
+I then just map the `tokens` object and convert their values with the `exchange rate` received.
 
-After that I call the `PrintPortfolioValues` Function thats responsible for printing the results.
+After that I call `PrintPortfolioValues` Function thats responsible for printing all results.
 ```
 Object.entries(tokens).forEach(([key]) => {            
     if(key in data)
