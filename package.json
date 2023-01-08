@@ -1,0 +1,22 @@
+{
+    "name": "cryptoport",
+    "version": "1.0.0.0",
+    "description": "Crypto Portfolio Value Analyzer",
+    "author": {
+        "name": "Victor Okinyi",
+        "email": "jets.starplus@gmail.com"
+    },
+    "scripts": {
+        "serve": "node index.js",
+        "build": "npx tsc index.ts"
+    },
+    "dependencies": {
+        "axios": "^1.2.2",
+        "fast-csv": "^4.3.6",
+        "readline-sync": "^1.4.10"
+    },
+    "license": "ISC",
+    "devDependencies": {
+        "typescript": "^4.9.4"
+    }
+}
