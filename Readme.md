@@ -4,7 +4,7 @@ I wrote this program in typescript and had some scripts to compile and build it 
 
 I also tried to write in a maintanable and to be able to scale regardless of which crypto token is used or added.
 ### 1. Import Dependencies
-I imported the modules that I'm going to use
+I imported all modules that I'm going to use
 ```
 const fs = require('node:fs');
 const csv = require('fast-csv')
@@ -13,11 +13,11 @@ import axios, {AxiosResponse} from 'axios';
 ```
 * `fs` is node.js module for manipulating files, It will be used for opening the CSV file.
 
-* `csv` is an installed module that provides a simple API for manipulating csv files.
+* `csv` is an installed module that provides an API for manipulating csv files.
 
-* `readlineSync` is a command line module that I will use to Get user Input of the filter parameters interactively.
+* `readlineSync` is a command line module that I'll use to Get user Input of filter parameters interactively.
 
-* `axios` is a module that I used for getting the exchange rates from cryptocompare'S API
+* `axios` is a module that is used for querying APIS, I'll use it to fetch exchange rates from cryptocompare'S API
 
 ### 2. Define Constant/Global Variables
 ```
@@ -48,7 +48,8 @@ type optionsType  = {
     inputDate?: string
 }
 ```
-`tokenType` represents tokens that are read from the csv file
+`tokenType` represents tokens that are read from the csv file.
+
 `optionsType` represents parameters that will be passed to the processing function
 
 ### 3. Get User Input and Initialize App.
@@ -62,7 +63,7 @@ const InitializeApp = () => {
 }
 ```
 Here I take non mandatory token and date filters from the user.
-I then call `ProcessCSV` function.
+I then call `ProcessCSV`.
 
 ### 4. Process the CSV file.
 ```
