@@ -117,7 +117,7 @@ const CalculateDebitCreditValue = (token:tokenType) => {
 I Use `exchangeCurrency = 'USD'` defined earlier.
 This can be changed to any other currency, it can even be fetched from an API or from and environment variable.
 
-The below function will fetch `exchange rates` of all the tokens in our `tokens` object and convert the value to that of the `exchangeCurrency`.
+The below function will fetch `exchange rates` of all tokens in our `tokens` object and use the result for conversion.
 ```
 const SetAmountToExchanged = (options:optionsType) => {
     let tokenKeys = ''
